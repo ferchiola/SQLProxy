@@ -1,0 +1,69 @@
+<Window x:Class="SQLProxy.Desktop.ProxyEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Proxy" Width="440" SizeToContent="Height" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <StackPanel Margin="12">
+        <TabControl Height="480">
+            <TabItem Header="General">
+                <StackPanel Margin="8">
+                    <TextBlock Text="Nombre" />
+                    <TextBox x:Name="NameBox" Margin="0,2,0,10" />
+
+                    <TextBlock Text="Puerto de escucha" />
+                    <TextBox x:Name="ListenPortBox" Margin="0,2,0,10" />
+
+                    <TextBlock Text="Backend" />
+                    <ComboBox x:Name="BackendCombo" Margin="0,2,0,10" SelectionChanged="BackendCombo_SelectionChanged">
+                        <ComboBoxItem Content="Sybase" />
+                        <ComboBoxItem Content="MssqlPassthrough" />
+                    </ComboBox>
+
+                    <CheckBox x:Name="AutoStartCheck" Content="Iniciar automáticamente al abrir la aplicación" Margin="0,0,0,10" IsChecked="True" />
+
+                    <StackPanel x:Name="SybasePanel">
+                        <TextBlock Text="Servidor ASE/Sybase" />
+                        <TextBox x:Name="SybaseServerBox" Margin="0,2,0,8" />
+                        <TextBlock Text="Puerto" />
+                        <TextBox x:Name="SybasePortBox" Margin="0,2,0,8" Text="5000" />
+                        <TextBlock Text="El usuario y password se toman del login que use SSMS (u otro cliente) al conectarse a este proxy — no se guardan acá." TextWrapping="Wrap" Foreground="Gray" Margin="0,0,0,8" />
+                    </StackPanel>
+
+                    <StackPanel x:Name="MssqlPanel" Visibility="Collapsed">
+                        <TextBlock Text="Servidor SQL Server" />
+                        <TextBox x:Name="MssqlServerBox" Margin="0,2,0,8" />
+                        <TextBlock Text="Puerto" />
+                        <TextBox x:Name="MssqlPortBox" Margin="0,2,0,8" Text="1433" />
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Enmascarado">
+                <StackPanel Margin="8">
+                    <TextBlock Text="Campos a enmascarar (formato Tabla.Campo). Funciona en ambos backends. Para MssqlPassthrough requiere autenticación SQL (no soporta Windows/Integrated auth)." TextWrapping="Wrap" Margin="0,0,0,8" />
+
+                    <TextBlock Text="Campo (Tabla.Campo)" />
+                    <TextBox x:Name="MaskedFieldInputBox" Margin="0,2,0,8" />
+
+                    <TextBlock Text="Tipo de enmascarado" />
+                    <ComboBox x:Name="MaskTypeCombo" Margin="0,2,0,8" SelectionChanged="MaskTypeCombo_SelectionChanged">
+                        <ComboBoxItem Content="Texto fijo" />
+                        <ComboBoxItem Content="SHA-256" />
+                    </ComboBox>
+
+                    <TextBlock x:Name="ReplacementTextLabel" Text="Texto de reemplazo" />
+                    <TextBox x:Name="ReplacementTextBox" Margin="0,2,0,8" Text="(Valor no disponible)" />
+
+                    <Button Content="Agregar / actualizar" Width="140" HorizontalAlignment="Left" Margin="0,0,0,8" Click="AddMaskedField_Click" />
+
+                    <ListBox x:Name="MaskedFieldsList" Height="190" SelectionChanged="MaskedFieldsList_SelectionChanged" />
+                    <Button Content="Quitar seleccionado" Width="140" Margin="0,6,0,0" HorizontalAlignment="Left" Click="RemoveMaskedField_Click" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="Aceptar" Width="80" Margin="0,0,6,0" Click="OkButton_Click" IsDefault="True" />
+            <Button Content="Cancelar" Width="80" IsCancel="True" />
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,15 @@
+bin/
+obj/
+*.user
+.vs/
+appsettings.Development.json
+appsettings.*.local.json
+
+# Project memory for Claude Code sessions — has real internal credentials/IPs baked into the fix
+# history prose, not meant for the public repo (2026-10-27, user decision: public repo, keep this local).
+CLAUDE.md
+
+# Runtime logs and the query-comparison log (can contain real query text/data from whatever backend
+# a proxy pointed at during testing) — not source, not meant to be versioned.
+*.log
+sqlproxy_comparisons.jsonl
